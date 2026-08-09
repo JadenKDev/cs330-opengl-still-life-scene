@@ -1,32 +1,202 @@
-# cs330-opengl-scene-project
-This project is an OpenGL scene I created for my CS330 final project.
+# OpenGL Still-Life Scene
 
+**CS-330: Computational Graphics and Visualization**
 
+An interactive 3D still-life scene created in C++ using OpenGL.
 
- How do I approach designing software and developing programs? 
+The project recreates a collection of real-world objects by combining basic 3D meshes, transformations, textures, materials, lighting, and an interactive camera system.
 
-I start by getting a solid understanding of the project, then break it down into smaller, manageable tasks. This modular approach helps keep everything organized and ensures that each part of the code can be easily reused and adjusted. Staying organized in this way was crucial in managing the 3D scene and making sure all the elements worked seamlessly together.
+![Rendered OpenGL Scene](Source/scene_image_model.png)
 
+## Technologies
 
+- C++
+- OpenGL
+- GLFW
+- GLEW
+- GLM
+- GLSL
+- stb_image
+- Visual Studio
 
- What new design skills have I developed, and what design process did I follow for this project?
+## Scene Overview
 
-This project sharpened my ability to design with a modular mindset, improving how I apply realistic textures and lighting. I approached the design by first studying the 2D image I wanted to replicate or create, then breaking the project down into smaller tasks like adding camera controls, building models, adding textures, and setting up lights. This methodical approach kept me focused, made the process smoother, and ensured that the code was organized and easy to tweak or reuse.
+The scene is constructed from reusable primitive meshes rather than imported 3D models.
 
+Objects include:
 
+- Ceramic-style vase
+- Water jug
+- Trash can
+- Dumbbell / hand weight
+- Handheld 3DS-style game console
+- Textured ground surface
 
- How could tactics from your design approach be applied in future work, and what new development strategies did you use while working on your 3D scene?
+Each object is assembled from combinations of primitive geometry such as:
 
-The modular design tactics I focused on for textures, materials, and lighting made the project more manageable and are strategies I’ll definitely use in future work. Breaking things down into reusable components keeps everything organized and ensures that all elements work together seamlessly. Additionally, incorporating features like camera controls and user interactions and continually testing and refining each part were crucial to the success of the scene and will be valuable strategies in future projects.
+- Boxes
+- Cylinders
+- Tapered cylinders
+- Spheres
+- Toruses
+- Prisms
+- Planes
 
+Scaling, rotation, and translation are used to position the individual meshes and combine them into more complex objects.
 
+## Textures and Materials
 
- How did iteration factor into your development, and how has your approach to developing code evolved throughout the milestones, which led you to the project’s completion?
+The scene uses multiple image textures to give objects distinct surface appearances.
 
-Iteration was huge in this project. I kept testing and tweaking each part of the scene, especially the textures, lighting, and camera controls. This iterative process helped me catch issues early and polish the scene to a higher standard. As I moved through the milestones, I started seeing the project more as an integrated whole rather than just a collection of tasks. I got better at predicting how changes in one area would impact the rest of the scene, which led to more strategic decisions in my coding. This shift in approach really helped me bring everything together by the end.
+Texture loading includes:
 
+- Image loading through `stb_image`
+- OpenGL texture creation
+- Texture wrapping
+- Linear filtering
+- Mipmap generation
+- Texture-slot binding
 
+Different material definitions are also used to control how surfaces react to light.
 
- How can computer science, particularly computational graphics, help me reach my goals?
+The project defines material types with varying:
 
-The skills I've gained in computational graphics are opening a lot of possibilities for both my education and career. By bridging the gap between coding and visual creation, I'm now able to create engaging 3D visuals that are useful in projects requiring advanced visualizations or simulations. This knowledge will help with deeper studies in areas like game development, VR, and simulation work, making it a major asset as I tackle more challenging projects. Whether in an academic setting or in the professional world, these skills are going to help me push boundaries and achieve my goals in computer science.
+- Ambient strength
+- Diffuse color
+- Specular color
+- Shininess
+
+These range from highly reflective surfaces to dull or non-reflective materials.
+
+## Lighting
+
+The scene contains multiple configurable light sources positioned around the environment.
+
+Lighting properties include:
+
+- Position
+- Ambient color
+- Diffuse color
+- Specular color
+- Focal strength
+- Specular intensity
+
+The different lights are used to control how textures and materials appear across the scene and to create depth between the modeled objects.
+
+## Camera Controls
+
+The scene includes an interactive 3D camera.
+
+### Movement
+
+- `W` — Move forward
+- `S` — Move backward
+- `A` — Move left
+- `D` — Move right
+- `Q` — Move up
+- `E` — Move down
+
+### View Controls
+
+- Mouse movement — Rotate the camera
+- Mouse wheel — Adjust camera movement/zoom behavior
+- `P` — Perspective projection
+- `O` — Orthographic projection
+- `Esc` — Close the application
+
+The application supports switching between perspective and orthographic views while the scene is running.
+
+## Scene Rendering
+
+The rendering process separates several responsibilities:
+
+- Window and OpenGL initialization
+- Shader management
+- Camera and view management
+- Scene preparation
+- Texture loading
+- Material configuration
+- Lighting configuration
+- Object transformations
+- Mesh rendering
+
+Each frame updates the view and projection data before rendering the composed scene.
+
+## Project Structure
+
+### `Source/MainCode.cpp`
+
+Initializes GLFW and GLEW, loads shaders, prepares the scene, and runs the main rendering loop.
+
+### `Source/SceneManager.cpp`
+
+Handles scene-specific rendering including:
+
+- Object transformations
+- Textures
+- Materials
+- Lighting
+- Mesh composition
+- Scene rendering
+
+### `Source/ViewManager.cpp`
+
+Handles:
+
+- Camera movement
+- Mouse input
+- Keyboard input
+- View matrices
+- Perspective projection
+- Orthographic projection
+
+### `Source/scene_image_model.png`
+
+Image of the completed rendered scene.
+
+### `Source/scene_image_original.png`
+
+Reference image used during the scene-design process.
+
+## Development Approach
+
+The project was developed incrementally by breaking the reference scene into smaller objects and then breaking each object into primitive shapes.
+
+The general workflow was:
+
+1. Identify the major objects in the reference scene.
+2. Determine which primitive meshes could represent each component.
+3. Scale, rotate, and position those meshes.
+4. Apply appropriate textures and materials.
+5. Configure scene lighting.
+6. Test camera movement and viewing angles.
+7. Iterate on object proportions, placement, textures, and lighting.
+
+This approach allowed complex objects to be constructed from reusable components while keeping the rendering logic organized.
+
+## Course Framework
+
+This project was built using the OpenGL framework supplied for the course.
+
+The provided framework includes supporting graphics infrastructure such as shader and mesh management. The scene-specific work builds on that framework by configuring and composing the objects, transformations, textures, materials, lighting, and final scene presentation.
+
+## Skills Demonstrated
+
+- C++
+- OpenGL
+- 3D Transformations
+- Texture Mapping
+- Material Properties
+- Lighting
+- Camera Systems
+- Perspective Projection
+- Orthographic Projection
+- Primitive Mesh Composition
+- Interactive Graphics
+- Computational Graphics
+
+## Course Context
+
+This project was completed for **CS-330: Computational Graphics and Visualization** at Southern New Hampshire University.
+
+The project focused on translating a 2D reference image into an interactive 3D scene while applying concepts in modeling, transformations, textures, lighting, camera movement, and rendering.
